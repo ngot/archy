@@ -1,45 +1,42 @@
-var test = require('tape');
-var archy = require('../');
+var archy = require('../index');
+var assert = require("assert");
 
-test('multi-line', function (t) {
-    var s = archy({
-      label : 'beep\none\ntwo',
+var s = archy({
+  label : 'beep\none\ntwo',
+  nodes : [
+    'ity',
+    {
+      label : 'boop',
       nodes : [
-        'ity',
         {
-          label : 'boop',
+          label : 'o_O\nwheee',
           nodes : [
             {
-              label : 'o_O\nwheee',
-              nodes : [
-                {
-                  label : 'oh',
-                  nodes : [ 'hello', 'puny\nmeat' ]
-                },
-                'creature'
-              ]
+              label : 'oh',
+              nodes : [ 'hello', 'puny\nmeat' ]
             },
-            'party\ntime!'
+            'creature'
           ]
-        }
+        },
+        'party\ntime!'
       ]
-    });
-    t.equal(s, [
-        'beep',
-        '│ one',
-        '│ two',
-        '├── ity',
-        '└─┬ boop',
-        '  ├─┬ o_O',
-        '  │ │ wheee',
-        '  │ ├─┬ oh',
-        '  │ │ ├── hello',
-        '  │ │ └── puny',
-        '  │ │     meat',
-        '  │ └── creature',
-        '  └── party',
-        '      time!',
-        ''
-    ].join('\n'));
-    t.end();
+    }
+  ]
 });
+assert.equal(s, [
+    'beep',
+    '│ one',
+    '│ two',
+    '├── ity',
+    '└─┬ boop',
+    '  ├─┬ o_O',
+    '  │ │ wheee',
+    '  │ ├─┬ oh',
+    '  │ │ ├── hello',
+    '  │ │ └── puny',
+    '  │ │     meat',
+    '  │ └── creature',
+    '  └── party',
+    '      time!',
+    ''
+].join('\n'));

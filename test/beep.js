@@ -1,40 +1,37 @@
-var test = require('tape');
-var archy = require('../');
+var archy = require('../index');
+var assert = require("assert");
 
-test('beep', function (t) {
-    var s = archy({
-      label : 'beep',
+var s = archy({
+  label : 'beep',
+  nodes : [
+    'ity',
+    {
+      label : 'boop',
       nodes : [
-        'ity',
         {
-          label : 'boop',
+          label : 'o_O',
           nodes : [
             {
-              label : 'o_O',
-              nodes : [
-                {
-                  label : 'oh',
-                  nodes : [ 'hello', 'puny' ]
-                },
-                'human'
-              ]
+              label : 'oh',
+              nodes : [ 'hello', 'puny' ]
             },
-            'party!'
+            'human'
           ]
-        }
+        },
+        'party!'
       ]
-    });
-    t.equal(s, [
-        'beep',
-        '├── ity',
-        '└─┬ boop',
-        '  ├─┬ o_O',
-        '  │ ├─┬ oh',
-        '  │ │ ├── hello',
-        '  │ │ └── puny',
-        '  │ └── human',
-        '  └── party!',
-        ''
-    ].join('\n'));
-    t.end();
+    }
+  ]
 });
+assert.equal(s, [
+    'beep',
+    '├── ity',
+    '└─┬ boop',
+    '  ├─┬ o_O',
+    '  │ ├─┬ oh',
+    '  │ │ ├── hello',
+    '  │ │ └── puny',
+    '  │ └── human',
+    '  └── party!',
+    ''
+].join('\n'));
